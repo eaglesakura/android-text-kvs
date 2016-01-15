@@ -1,1 +1,1 @@
-# Android Thread Utils
+# Android Text Key-Value store

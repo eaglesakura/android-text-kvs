@@ -32,7 +32,7 @@ public abstract class BaseProperties {
     /**
      * ロード済みのプロパティ
      */
-    protected final Map<String, Property> propMap = new HashMap<String, Property>();
+    protected final Map<String, Property> propMap = new HashMap<>();
 
     public BaseProperties(Context context) {
         this.context = context;
@@ -265,7 +265,7 @@ public abstract class BaseProperties {
             throw new IOException("Format Error");
         }
     }
-    
+
     /**
      * 値を全てデフォルト化する
      */

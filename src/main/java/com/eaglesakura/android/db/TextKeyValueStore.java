@@ -9,6 +9,7 @@ import android.util.Base64;
 
 import com.eaglesakura.util.LogUtil;
 
+import java.io.Closeable;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -21,7 +22,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * SQLを利用した簡単なKVSを提供する。
  * insert時にはkey-valueと更新時刻が保存される。
  */
-public class TextKeyValueStore {
+public class TextKeyValueStore implements Closeable {
 
     /**
      * デフォルトのテーブル名
@@ -109,6 +110,7 @@ public class TextKeyValueStore {
     /**
      * DBを閉じる
      */
+    @Override
     public void close() {
         if (refs.decrementAndGet() == 0) {
             if (helper != null) {
