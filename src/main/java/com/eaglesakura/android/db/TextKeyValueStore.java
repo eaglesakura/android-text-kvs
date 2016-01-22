@@ -1,13 +1,13 @@
 package com.eaglesakura.android.db;
 
+import com.eaglesakura.util.LogUtil;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Base64;
-
-import com.eaglesakura.util.LogUtil;
 
 import java.io.Closeable;
 import java.io.File;
@@ -122,8 +122,6 @@ public class TextKeyValueStore implements Closeable {
 
     /**
      * トランザクション内で処理を行う
-     *
-     * @param runnable
      */
     public synchronized void runInTx(Runnable runnable) {
         try {
@@ -142,8 +140,6 @@ public class TextKeyValueStore implements Closeable {
 
     /**
      * 値の挿入/更新を行う
-     *
-     * @param values
      */
     public void putInTx(final Map<String, String> values) {
         runInTx(new Runnable() {
@@ -171,9 +167,6 @@ public class TextKeyValueStore implements Closeable {
 
     /**
      * 簡易的に値を挿入する
-     *
-     * @param key
-     * @param value
      */
     public void putDirect(final String key, final String value) {
         runInTx(new Runnable() {
@@ -187,9 +180,6 @@ public class TextKeyValueStore implements Closeable {
     /**
      * DBに値を新規登録する。
      * 登録済みの場合、上書きを行う。
-     *
-     * @param key
-     * @param value
      */
     public void insertOrUpdate(String key, String value) {
         final ContentValues values = createValues(key, value);
@@ -204,9 +194,6 @@ public class TextKeyValueStore implements Closeable {
 
     /**
      * 値の更新を行う
-     *
-     * @param key
-     * @param value
      */
     public void update(String key, String value) {
         final ContentValues values = createValues(key, value);
@@ -220,8 +207,6 @@ public class TextKeyValueStore implements Closeable {
     /**
      * byte配列を書き込む。
      * ただし、Base64エンコードされるため見た目上のデータは大きくなる。
-     *
-     * @param buffer
      */
     public void insert(String key, byte[] buffer) {
         insert(key, toString(buffer));
@@ -229,9 +214,6 @@ public class TextKeyValueStore implements Closeable {
 
     /**
      * byte配列を挿入もしくは更新する。
-     *
-     * @param key
-     * @param buffer
      */
     public void insertOrUpdate(String key, byte[] buffer) {
         insertOrUpdate(key, toString(buffer));
@@ -240,8 +222,6 @@ public class TextKeyValueStore implements Closeable {
     /**
      * DBに値を新規登録する。
      * 失敗した場合は何も行わない。
-     *
-     * @param key
      */
     public void insert(String key, String value) {
         final ContentValues values = createValues(key, value);
@@ -254,8 +234,6 @@ public class TextKeyValueStore implements Closeable {
 
     /**
      * DBに書き込み済みの値を削除する
-     *
-     * @param key
      */
     public void remove(String key) {
         try {
@@ -267,9 +245,6 @@ public class TextKeyValueStore implements Closeable {
 
     /**
      * 詳細なデータを取得する。
-     *
-     * @param key
-     * @return
      */
     public Data get(String key) {
         Cursor cursor = null;
@@ -293,8 +268,6 @@ public class TextKeyValueStore implements Closeable {
 
     /**
      * 管理しているデータ一覧を返す。
-     *
-     * @return
      */
     public List<Data> list() {
         Cursor cursor = null;
@@ -319,9 +292,6 @@ public class TextKeyValueStore implements Closeable {
 
     /**
      * 同じvalueを持つデータ一覧を返す。
-     *
-     * @param value
-     * @return
      */
     public List<Data> listValues(String value) {
         Cursor cursor = null;
@@ -347,10 +317,6 @@ public class TextKeyValueStore implements Closeable {
 
     /**
      * 日付がdate以降で、上位max件を取得する。
-     *
-     * @param date
-     * @param max
-     * @return
      */
     public List<Data> listTimesUpToDate(long date, int max) {
         List<Data> result = new LinkedList<Data>();
@@ -391,10 +357,6 @@ public class TextKeyValueStore implements Closeable {
 
     /**
      * 文字列をint変換して取得する
-     *
-     * @param key
-     * @param def
-     * @return
      */
     public int getInteger(String key, int def) {
         return (int) getLong(key, def);
@@ -402,10 +364,6 @@ public class TextKeyValueStore implements Closeable {
 
     /**
      * 文字列をlong変換して取得する
-     *
-     * @param key
-     * @param def
-     * @return
      */
     public long getLong(String key, long def) {
         String value = get(key, null);
@@ -418,10 +376,6 @@ public class TextKeyValueStore implements Closeable {
 
     /**
      * 文字列をlong変換して取得する
-     *
-     * @param key
-     * @param def
-     * @return
      */
     public float getFloat(String key, float def) {
         String value = get(key, null);
@@ -434,9 +388,6 @@ public class TextKeyValueStore implements Closeable {
 
     /**
      * 値を取得する
-     *
-     * @param key
-     * @return
      */
     public String getOrNull(String key) {
         Cursor cursor = null;
@@ -459,9 +410,6 @@ public class TextKeyValueStore implements Closeable {
 
     /**
      * キーが存在したらtrue
-     *
-     * @param key
-     * @return
      */
     public boolean exists(String key) {
         return get(key, null) != null;
@@ -526,8 +474,6 @@ public class TextKeyValueStore implements Closeable {
     /**
      * insertDBをこのオブジェクトが管理するDBに結合する。
      * データが競合した場合、どちらを優先するかはfilterによって確定される。
-     *
-     * @param insertDB
      */
     public void insertTo(final TextKeyValueStore insertDB, final InsertFilter filter) {
         runInTx(new Runnable() {
@@ -599,13 +545,6 @@ public class TextKeyValueStore implements Closeable {
         /**
          * insertValueで古い値を上書きするかどうかを確定する。
          * trueを返した場合、insertValueで値を上書きする。
-         *
-         * @param key
-         * @param currentValue
-         * @param currentDate
-         * @param insertValue
-         * @param insertDate
-         * @return
          */
         boolean isOverwrite(String key, String currentValue, long currentDate, String insertValue,
                             long insertDate);
@@ -674,8 +613,6 @@ public class TextKeyValueStore implements Closeable {
         /**
          * データをbyte配列として取得する
          * ただし、insert()時にbyte[]で挿入したデータだけが対象。
-         *
-         * @return
          */
         public byte[] valueToByteArray() {
             return Base64.decode(value, Base64.DEFAULT);

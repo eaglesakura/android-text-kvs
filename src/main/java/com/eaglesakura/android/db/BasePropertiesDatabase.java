@@ -1,10 +1,10 @@
 package com.eaglesakura.android.db;
 
-import android.content.Context;
-
 import com.eaglesakura.android.thread.async.AsyncTaskController;
 import com.eaglesakura.android.thread.async.AsyncTaskResult;
 import com.eaglesakura.util.StringUtil;
+
+import android.content.Context;
 
 import java.io.File;
 import java.util.HashMap;
@@ -94,8 +94,6 @@ public abstract class BasePropertiesDatabase extends BaseProperties {
 
     /**
      * 指定したキーのみをDBからロードする
-     *
-     * @param key
      */
     public void load(String key) {
         load(new String[]{key});
@@ -103,8 +101,6 @@ public abstract class BasePropertiesDatabase extends BaseProperties {
 
     /**
      * 指定したキーのみをDBからロードする
-     *
-     * @param keys
      */
     public void load(String[] keys) {
         // Contextを持たないため読込が行えない

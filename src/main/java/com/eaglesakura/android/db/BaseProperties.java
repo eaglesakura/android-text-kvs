@@ -1,13 +1,13 @@
 package com.eaglesakura.android.db;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-
 import com.eaglesakura.util.EncodeUtil;
 import com.eaglesakura.util.LogUtil;
 import com.eaglesakura.util.SerializeUtil;
 import com.eaglesakura.util.StringUtil;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -40,9 +40,6 @@ public abstract class BaseProperties {
 
     /**
      * このコンストラクタは互換性のためにあるため、dbNameは無視される。
-     *
-     * @param context
-     * @param dbName
      */
     public BaseProperties(Context context, String dbName) {
         this(context);
@@ -117,9 +114,6 @@ public abstract class BaseProperties {
 
     /**
      * PNG形式で保存してあるBitmapを取得する
-     *
-     * @param key
-     * @return
      */
     public Bitmap getBitmapProperty(String key) {
         byte[] pngFile = getByteArrayProperty(key);
@@ -137,9 +131,6 @@ public abstract class BaseProperties {
 
     /**
      * base64エンコードオブジェクトを取得する
-     *
-     * @param key
-     * @return
      */
     public byte[] getByteArrayProperty(String key) {
         try {
@@ -222,8 +213,6 @@ public abstract class BaseProperties {
 
     /**
      * プロパティを追加する
-     *
-     * @param key
      */
     protected void addProperty(String key, String defaultValue) {
         propMap.put(key, new Property(key, defaultValue));
@@ -283,10 +272,6 @@ public abstract class BaseProperties {
 
     /**
      * 配列をシリアライズする
-     *
-     * @param datas
-     * @param <T>
-     * @return
      */
     public static <T extends BaseProperties> byte[] serialize(List<T> datas) {
         List<byte[]> serializeArray = new ArrayList<>();
@@ -299,9 +284,6 @@ public abstract class BaseProperties {
 
     /**
      * Key-Valueマップをシリアライズする
-     *
-     * @param datas
-     * @return
      */
     public static byte[] serialize(Map<String, BaseProperties> datas) {
         Map<String, byte[]> serializeMap = new HashMap<>();
@@ -316,12 +298,6 @@ public abstract class BaseProperties {
 
     /**
      * シリアライズされたバッファからクラスを復元する
-     *
-     * @param context
-     * @param clazz
-     * @param buffer
-     * @param <T>
-     * @return
      */
     public static <T extends BaseProperties> List<T> deserializeToArray(Context context, Class<T> clazz, byte[] buffer) {
         buffer = EncodeUtil.decompressOrRaw(buffer);
@@ -346,10 +322,6 @@ public abstract class BaseProperties {
     /**
      * Key-Valueからデシリアライズする。
      * デシリアライズ先は不明であるため、byte[]までの解凍に留める。
-     *
-     * @param context
-     * @param buffer
-     * @return
      */
     public static Map<String, byte[]> deserializeToSerializedMap(Context context, byte[] buffer) {
         buffer = EncodeUtil.decompressOrRaw(buffer);
@@ -358,12 +330,6 @@ public abstract class BaseProperties {
 
     /**
      * 生成されたbyte[]からインスタンスを復元する
-     *
-     * @param context
-     * @param clazz
-     * @param data
-     * @param <T>
-     * @return
      */
     public static <T extends BaseProperties> T deserializeInstance(Context context, Class<T> clazz, byte[] data) {
         try {
