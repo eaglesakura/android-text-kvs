@@ -219,4 +219,11 @@ public abstract class BasePropertiesDatabase extends BaseProperties {
     public static AsyncTaskResult<AsyncTaskController> runInTaskQueue(Runnable runnable) {
         return gTaskController.pushBack(runnable);
     }
+
+    /**
+     * タスク管理クラスを取得する
+     */
+    public static AsyncTaskController getTaskController() {
+        return gTaskController;
+    }
 }
