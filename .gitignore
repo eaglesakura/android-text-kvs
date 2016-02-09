@@ -4,4 +4,5 @@ cygdrive/
 .gradle/
 .idea/
 *.iml
-/ci-build
+/ci-release
+/maven
