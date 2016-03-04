@@ -1,7 +1,5 @@
 package com.eaglesakura.android.db;
 
-import com.eaglesakura.android.thread.async.AsyncTaskController;
-import com.eaglesakura.android.thread.async.AsyncTaskResult;
 import com.eaglesakura.util.StringUtil;
 
 import android.content.Context;
@@ -77,21 +75,6 @@ public abstract class BasePropertiesDatabase extends BaseProperties {
         }
     }
 
-    private static AsyncTaskController gTaskController = new AsyncTaskController(1);
-
-    /**
-     * 非同期で値を保存する。
-     * その間、値を書き換えても値の保証はしない。
-     */
-    public AsyncTaskResult<AsyncTaskController> commitAsync() {
-        return gTaskController.pushBack(new Runnable() {
-            @Override
-            public void run() {
-                commit();
-            }
-        });
-    }
-
     /**
      * 指定したキーのみをDBからロードする
      */
@@ -154,18 +137,6 @@ public abstract class BasePropertiesDatabase extends BaseProperties {
     }
 
     /**
-     * 非同期でデータを読み込む
-     */
-    public AsyncTaskResult<AsyncTaskController> loadAsync() {
-        return gTaskController.pushBack(new Runnable() {
-            @Override
-            public void run() {
-                load();
-            }
-        });
-    }
-
-    /**
      * 全てのプロパティを最新に保つ
      */
     public void commitAndLoad() {
@@ -201,29 +172,4 @@ public abstract class BasePropertiesDatabase extends BaseProperties {
         }
     }
 
-    /**
-     * 非同期にコミット＆ロードを行い、設定を最新に保つ
-     */
-    public AsyncTaskResult<AsyncTaskController> commitAndLoadAsync() {
-        return gTaskController.pushBack(new Runnable() {
-            @Override
-            public void run() {
-                commitAndLoad();
-            }
-        });
-    }
-
-    /**
-     * @param runnable
-     */
-    public static AsyncTaskResult<AsyncTaskController> runInTaskQueue(Runnable runnable) {
-        return gTaskController.pushBack(runnable);
-    }
-
-    /**
-     * タスク管理クラスを取得する
-     */
-    public static AsyncTaskController getTaskController() {
-        return gTaskController;
-    }
 }
