@@ -8,7 +8,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-public class TextKeyValueStoreTest extends UnitTestCase {
+public class Text_KeyValueStoreTest extends UnitTestCase {
 
     int mDbNum = 0;
 
