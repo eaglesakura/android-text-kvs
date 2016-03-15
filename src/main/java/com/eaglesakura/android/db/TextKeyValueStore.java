@@ -266,12 +266,33 @@ public class TextKeyValueStore implements Closeable {
         return null;
     }
 
+    public List<Data> likeKey(String keys) {
+        Cursor cursor = null;
+        List<Data> result = new ArrayList<>();
+        try {
+            cursor = db.query(tableName, cursorDatas, String.format("%s LIKE '%%%s%%'", DB_KEY, keys), null, null, null, null);
+
+            if (cursor.moveToFirst()) {
+                do {
+                    result.add(new Data(cursor));
+                } while (cursor.moveToNext());
+            }
+        } catch (Exception e) {
+
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return result;
+    }
+
     /**
      * 管理しているデータ一覧を返す。
      */
     public List<Data> list() {
         Cursor cursor = null;
-        List<Data> result = new ArrayList<Data>();
+        List<Data> result = new ArrayList<>();
         try {
             cursor = db.query(tableName, cursorDatas, null, null, null, null, null);
 
