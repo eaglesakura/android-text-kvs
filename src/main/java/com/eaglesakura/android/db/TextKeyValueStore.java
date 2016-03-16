@@ -1,6 +1,8 @@
 package com.eaglesakura.android.db;
 
 import com.eaglesakura.util.LogUtil;
+import com.eaglesakura.util.ThrowableRunnable;
+import com.eaglesakura.util.ThrowableRunner;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -137,6 +139,14 @@ public class TextKeyValueStore implements Closeable {
         }
     }
 
+    /**
+     * トランザクション内で処理を行う
+     */
+    public synchronized <RetType, ErrType extends Throwable> RetType runInTx(ThrowableRunnable<RetType, ErrType> runnable) throws ErrType {
+        ThrowableRunner<RetType, ErrType> runner = new ThrowableRunner<>(runnable);
+        runInTx(runner);
+        return runner.getOrThrow();
+    }
 
     /**
      * 値の挿入/更新を行う
