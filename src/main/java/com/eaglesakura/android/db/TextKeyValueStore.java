@@ -10,6 +10,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Base64;
+import android.util.Log;
 
 import java.io.Closeable;
 import java.io.File;
@@ -548,7 +549,7 @@ public class TextKeyValueStore implements Closeable {
         do {
             String key = cursor.getString(0);
             String value = cursor.getString(1);
-            LogUtil.log(key + " :: " + value);
+            Log.d("KVS", key + " :: " + value);
         } while (cursor.moveToNext());
     }
 

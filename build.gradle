@@ -46,14 +46,12 @@ if (!hasProperty("EGLIBRARY_COMPILE_LOCAL")) {
 
 dependencies {
     if (EGLIBRARY_COMPILE_LOCAL) {
-        compile project(':eglibrary:simple-logger')
         compile project(':eglibrary:simple-utils')
         compile project(':eglibrary:simple-serialize')
         compile project(':eglibrary:android-thread')
 
         testCompile project(":eglibrary:android-unittest-support")
     } else {
-        compile 'com.eaglesakura:simple-logger:1.+'
         compile 'com.eaglesakura:simple-utils:1.+'
         compile 'com.eaglesakura:simple-serialize:1.+'
         compile 'com.eaglesakura:android-thread:1.+'
