@@ -23,6 +23,7 @@ import java.util.Map;
 /**
  * 簡易設定用のプロパティを保持するためのクラス
  */
+@Deprecated
 public abstract class BaseProperties {
     /**
      * app context
