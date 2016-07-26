@@ -1,6 +1,8 @@
-package com.eaglesakura.android.db;
+package com.eaglesakura.android.property;
 
-import com.eaglesakura.android.db.model.PropertySource;
+import com.eaglesakura.android.db.DBOpenType;
+import com.eaglesakura.android.db.TextKeyValueStore;
+import com.eaglesakura.android.property.model.PropertySource;
 
 import android.content.Context;
 

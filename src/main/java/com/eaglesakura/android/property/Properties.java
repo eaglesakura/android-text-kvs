@@ -1,4 +1,4 @@
-package com.eaglesakura.android.db;
+package com.eaglesakura.android.property;
 
 import com.eaglesakura.util.StringUtil;
 
@@ -13,7 +13,7 @@ import java.util.Date;
  * 簡易設定用のプロパティを保持するためのクラス
  */
 public class Properties {
-    PropertyStore mPropertyStore;
+    private PropertyStore mPropertyStore;
 
     public PropertyStore getPropertyStore() {
         return mPropertyStore;

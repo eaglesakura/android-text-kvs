@@ -1,5 +1,10 @@
-package com.eaglesakura.android.db;
+package com.eaglesakura.android.property;
 
+import com.eaglesakura.android.db.UnitTestCase;
+import com.eaglesakura.android.property.Properties;
+import com.eaglesakura.android.property.PropertyStore;
+import com.eaglesakura.android.property.TextDatabasePropertyStore;
+import com.eaglesakura.android.property.TextPropertyStore;
 import com.eaglesakura.util.CollectionUtil;
 
 import org.junit.Test;

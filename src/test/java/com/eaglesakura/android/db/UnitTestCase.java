@@ -1,7 +1,7 @@
 package com.eaglesakura.android.db;
 
 import com.eaglesakura.android.AndroidSupportTestCase;
-import com.eaglesakura.android.db.model.PropertySource;
+import com.eaglesakura.android.property.model.PropertySource;
 import com.eaglesakura.android.tkvs.BuildConfig;
 import com.eaglesakura.json.JSON;
 

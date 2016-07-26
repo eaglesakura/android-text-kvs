@@ -1,4 +1,4 @@
-package com.eaglesakura.android.db;
+package com.eaglesakura.android.property;
 
 /**
  * Textで管理されたプロパティを扱う

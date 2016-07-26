@@ -1,4 +1,4 @@
-package com.eaglesakura.android.db.model;
+package com.eaglesakura.android.property.model;
 
 import java.util.List;
 

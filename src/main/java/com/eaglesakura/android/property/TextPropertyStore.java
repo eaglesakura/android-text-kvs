@@ -1,6 +1,6 @@
-package com.eaglesakura.android.db;
+package com.eaglesakura.android.property;
 
-import com.eaglesakura.android.db.model.PropertySource;
+import com.eaglesakura.android.property.model.PropertySource;
 import com.eaglesakura.util.SerializeUtil;
 import com.eaglesakura.util.StringUtil;
 

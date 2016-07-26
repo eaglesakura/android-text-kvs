@@ -1,4 +1,4 @@
-package com.eaglesakura.android.db.model;
+package com.eaglesakura.android.property.model;
 
 import com.eaglesakura.android.db.UnitTestCase;
 import com.eaglesakura.json.JSON;
