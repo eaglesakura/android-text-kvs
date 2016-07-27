@@ -15,7 +15,7 @@ public interface PropertyStore {
      * @param key   プロパティのキー値
      * @param value プロパティの値
      */
-    void setProperty(String key, Object value);
+    void setProperty(String key, String value);
 
     /**
      * 値を全てデフォルト化する

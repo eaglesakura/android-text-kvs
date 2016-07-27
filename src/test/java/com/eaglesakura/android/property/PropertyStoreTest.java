@@ -1,10 +1,6 @@
 package com.eaglesakura.android.property;
 
 import com.eaglesakura.android.db.UnitTestCase;
-import com.eaglesakura.android.property.Properties;
-import com.eaglesakura.android.property.PropertyStore;
-import com.eaglesakura.android.property.TextDatabasePropertyStore;
-import com.eaglesakura.android.property.TextPropertyStore;
 import com.eaglesakura.util.CollectionUtil;
 
 import org.junit.Test;
@@ -27,10 +23,10 @@ public class PropertyStoreTest extends UnitTestCase {
         assertEquals(props.getBooleanProperty("Debug.booleanKey"), true);
 
         // 値を変更できる
-        store.setProperty("Sample.intKey", 234);
+        store.setProperty("Sample.intKey", "234");
         assertEquals(props.getIntProperty("Sample.intKey"), 234);
 
-        store.setProperty("Sample.booleanKey", true);
+        store.setProperty("Sample.booleanKey", "true");
         assertEquals(props.getBooleanProperty("Sample.booleanKey"), true);
     }
 

@@ -4,9 +4,6 @@ import com.eaglesakura.android.property.model.PropertySource;
 import com.eaglesakura.util.SerializeUtil;
 import com.eaglesakura.util.StringUtil;
 
-import android.graphics.Bitmap;
-
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -23,31 +20,9 @@ public class TextPropertyStore implements PropertyStore {
     }
 
     @Override
-    public void setProperty(String key, Object value) {
+    public void setProperty(String key, String value) {
         Property prop = mPropMap.get(key);
-
-        if (value instanceof Enum) {
-            value = ((Enum) value).name();
-        } else if (value instanceof Bitmap) {
-            try {
-                Bitmap bmp = (Bitmap) value;
-                ByteArrayOutputStream os = new ByteArrayOutputStream();
-                bmp.compress(Bitmap.CompressFormat.PNG, 100, os);
-
-                value = os.toByteArray();
-            } catch (Exception e) {
-                value = null;
-            }
-        } else if (value instanceof Boolean) {
-            // trueならば"1"、falseならば"0"としてしまう
-            value = Boolean.TRUE.equals(value) ? "1" : "0";
-        }
-
-        if (value instanceof byte[]) {
-            prop.mValue = StringUtil.toString((byte[]) value);
-        } else {
-            prop.mValue = value.toString();
-        }
+        prop.mValue = value;
         prop.mModified = true;
     }
 
