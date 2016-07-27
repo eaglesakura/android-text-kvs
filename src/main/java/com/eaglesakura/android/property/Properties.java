@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.support.annotation.Nullable;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.util.Date;
 
 /**
@@ -28,7 +29,28 @@ public class Properties {
     }
 
     public void setProperty(String key, Object value) {
-        mPropertyStore.setProperty(key, value);
+        if (value instanceof Enum) {
+            value = ((Enum) value).name();
+        } else if (value instanceof Bitmap) {
+            try {
+                Bitmap bmp = (Bitmap) value;
+                ByteArrayOutputStream os = new ByteArrayOutputStream();
+                bmp.compress(Bitmap.CompressFormat.PNG, 100, os);
+
+                value = os.toByteArray();
+            } catch (Exception e) {
+                value = null;
+            }
+        } else if (value instanceof Boolean) {
+            // trueならば"1"、falseならば"0"としてしまう
+            value = Boolean.TRUE.equals(value) ? "1" : "0";
+        }
+
+        if (value instanceof byte[]) {
+            mPropertyStore.setProperty(key, StringUtil.toString((byte[]) value));
+        } else {
+            mPropertyStore.setProperty(key, value.toString());
+        }
     }
 
     public void clear() {
