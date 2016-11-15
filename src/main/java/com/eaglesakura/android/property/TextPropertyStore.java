@@ -72,6 +72,37 @@ public class TextPropertyStore implements PropertyStore {
     }
 
     /**
+     * Key-ValueのMAPに変換する
+     */
+    public Map<String, String> asMap() {
+        Map<String, String> datas = new HashMap<>();
+        Iterator<Map.Entry<String, Property>> itr = mPropMap.entrySet().iterator();
+        while (itr.hasNext()) {
+            Map.Entry<String, Property> entry = itr.next();
+            Property prop = entry.getValue();
+            if (!StringUtil.isEmpty(prop.mValue)) {
+                datas.put(prop.mKey, prop.mValue);
+            } else {
+                datas.put(prop.mKey, prop.mDefaultValue);
+            }
+        }
+        return datas;
+    }
+
+    /**
+     * Mapから復元する
+     */
+    public void loadProperties(Map<String, String> map) {
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            Property property = mPropMap.get(entry.getKey());
+            if (property != null) {
+                property.mValue = entry.getValue();
+                property.mModified = true;
+            }
+        }
+    }
+
+    /**
      * プロパティ一覧をシリアライズする
      */
     public byte[] serialize() {
