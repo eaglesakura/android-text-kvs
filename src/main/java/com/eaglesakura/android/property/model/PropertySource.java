@@ -1,5 +1,7 @@
 package com.eaglesakura.android.property.model;
 
+import android.support.annotation.Keep;
+
 import java.util.List;
 
 /**
@@ -10,6 +12,7 @@ public class PropertySource {
     /**
      * 複数のプロパティを1ファイルで管理する
      */
+    @Keep
     public List<Group> groups;
 
     /**
@@ -19,16 +22,19 @@ public class PropertySource {
         /**
          * デフォルト値
          */
+        @Keep
         public String value;
 
         /**
          * プロパティ名
          */
+        @Keep
         public String name;
 
         /**
          * 型名, String, int, long等
          */
+        @Keep
         public String type;
     }
 
@@ -39,11 +45,13 @@ public class PropertySource {
         /**
          * プロパティ一覧
          */
+        @Keep
         public List<Property> properties;
 
         /**
          * グループ名
          */
+        @Keep
         public String name;
     }
 }
