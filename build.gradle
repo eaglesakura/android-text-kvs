@@ -69,7 +69,7 @@ dependencies {
         testCompile project(":eglibrary:android-unittest-support")
     } else {
         compile "com.eaglesakura:simple-utils:1.2.562"
-        compile "com.eaglesakura:simple-serialize:1.1.448"
+        compile "com.eaglesakura:simple-serialize:1.2.453"
         compile "com.eaglesakura:android-simple-utils:2.0.548"
 
         testCompile "com.eaglesakura:json-wrapper:1.1.423"
