@@ -1,6 +1,5 @@
 package com.eaglesakura.android.db;
 
-import com.eaglesakura.util.LogUtil;
 import com.eaglesakura.util.ThrowableRunnable;
 import com.eaglesakura.util.ThrowableRunner;
 
@@ -524,7 +523,7 @@ public class TextKeyValueStore implements Closeable {
                             try {
                                 _insert(key, value, date, filter);
                             } catch (Exception e) {
-                                LogUtil.log(e);
+                                e.printStackTrace();
                             }
                         } while (cursor.moveToNext());
                     }
