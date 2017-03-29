@@ -198,7 +198,7 @@ public class TextKeyValueStore implements Closeable {
         } catch (Exception e) {
             //            remove(key);
             //            db.insert(tableName, null, values);
-            db.update(tableName, values, DB_KEY + "='" + key + "'", null);
+            db.update(tableName, values, DB_KEY + "=?", new String[]{key});
         }
     }
 
@@ -247,7 +247,7 @@ public class TextKeyValueStore implements Closeable {
      */
     public void remove(String key) {
         try {
-            db.delete(tableName, DB_KEY + "='" + key + "'", null);
+            db.delete(tableName, DB_KEY + "=?", new String[]{key});
         } catch (Exception e) {
 
         }
@@ -259,8 +259,8 @@ public class TextKeyValueStore implements Closeable {
     public Data get(String key) {
         Cursor cursor = null;
         try {
-            String selection = DB_KEY + "='" + key + "'";
-            cursor = db.query(tableName, cursorDatas, selection, null, null, null, null);
+            String selection = DB_KEY + "=?";
+            cursor = db.query(tableName, cursorDatas, selection, new String[]{key}, null, null, null);
 
             if (cursor.moveToFirst()) {
                 return new Data(cursor);
@@ -280,7 +280,7 @@ public class TextKeyValueStore implements Closeable {
         Cursor cursor = null;
         List<Data> result = new ArrayList<>();
         try {
-            cursor = db.query(tableName, cursorDatas, String.format("%s LIKE '%%%s%%'", DB_KEY, keys), null, null, null, null);
+            cursor = db.query(tableName, cursorDatas, String.format("%s LIKE ?", DB_KEY), new String[]{"%%" + keys + "%%"}, null, null, null);
 
             if (cursor.moveToFirst()) {
                 do {
@@ -328,8 +328,8 @@ public class TextKeyValueStore implements Closeable {
         Cursor cursor = null;
         List<Data> result = new ArrayList<Data>();
         try {
-            String selection = DB_VALUE + "='" + value + "'";
-            cursor = db.query(tableName, cursorDatas, selection, null, null, null, null);
+            String selection = DB_VALUE + "=?";
+            cursor = db.query(tableName, cursorDatas, selection, new String[]{value}, null, null, null);
 
             if (cursor.moveToFirst()) {
                 do {
@@ -423,10 +423,10 @@ public class TextKeyValueStore implements Closeable {
     public String getOrNull(String key) {
         Cursor cursor = null;
         try {
-            String selection = DB_KEY + "='" + key + "'";
+            String selection = DB_KEY + "=?";
             cursor = db.query(tableName, new String[]{
                     DB_VALUE
-            }, selection, null, null, null, null);
+            }, selection, new String[]{key}, null, null, null);
 
             cursor.moveToFirst();
             return cursor.getString(0);
