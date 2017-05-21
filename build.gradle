@@ -65,7 +65,7 @@ dependencies {
     } else {
         compile "com.eaglesakura:java-commons:2.0.3"
         testCompile "com.eaglesakura:json-wrapper:1.1.423"
-        testCompile "com.eaglesakura:android-unittest-support:1.4.207"
+        testCompile "com.eaglesakura:android-unittest-support:1.5.211"
     }
 }
 
