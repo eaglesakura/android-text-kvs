@@ -65,7 +65,7 @@ dependencies {
         testCompile project(":eglibrary:json-wrapper")
         testCompile project(":eglibrary:android-unittest-support")
     } else {
-        compile "com.eaglesakura:java-commons:2.1.0"
+        compile "com.eaglesakura:java-commons:2.2.0"
         testCompile "com.eaglesakura:json-wrapper:1.2.0"
         testCompile "com.eaglesakura:android-unittest-support:1.5.211"
     }

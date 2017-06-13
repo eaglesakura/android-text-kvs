@@ -78,12 +78,7 @@ public class TextKeyValueStoreTest extends UnitTestCase {
         try {
             db.open(DBOpenType.Read);
 
-            List<String> keys = CollectionUtil.asOtherList(db.listValues("this is value"), new ResultAction1<TextKeyValueStore.Data, String>() {
-                @Override
-                public String action(TextKeyValueStore.Data it) throws Throwable {
-                    return it.key;
-                }
-            });
+            List<String> keys = CollectionUtil.asOtherList(db.listValues("this is value"), it -> it.key);
             assertEquals(keys.size(), 3);
             assertTrue(keys.contains("Key1"));
             assertTrue(keys.contains("Key2"));
