@@ -54,21 +54,10 @@ android {
     }
 }
 
-// Local or maven
-if (!hasProperty("EGLIBRARY_COMPILE_LOCAL")) {
-    ext.EGLIBRARY_COMPILE_LOCAL = false
-}
-
 dependencies {
-    if (EGLIBRARY_COMPILE_LOCAL) {
-        compile project(':eglibrary:java-commons')
-        testCompile project(":eglibrary:json-wrapper")
-        testCompile project(":eglibrary:android-unittest-support")
-    } else {
-        compile "com.eaglesakura:java-commons:2.2.0"
-        testCompile "com.eaglesakura:json-wrapper:1.2.0"
-        testCompile "com.eaglesakura:android-unittest-support:1.5.211"
-    }
+    compile "com.eaglesakura:java-commons:2.2.0"
+    testCompile "com.eaglesakura:json-wrapper:1.2.0"
+    testCompile "com.eaglesakura:android-unittest-support:1.5.211"
 }
 
 task sourcesJar(type: Jar) {
