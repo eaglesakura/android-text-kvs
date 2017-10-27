@@ -142,7 +142,7 @@ public class TextKeyValueStore implements Closeable {
     /**
      * トランザクション内で処理を行う
      */
-    public synchronized <RetType, ErrType extends Throwable> RetType runInTx(ThrowableRunnable<RetType, ErrType> runnable) throws ErrType {
+    public synchronized <RetType, ErrType extends Exception> RetType runInTx(ThrowableRunnable<RetType, ErrType> runnable) throws ErrType {
         ThrowableRunner<RetType, ErrType> runner = new ThrowableRunner<>(runnable);
         runInTx(runner);
         return runner.getOrThrow();
@@ -152,14 +152,11 @@ public class TextKeyValueStore implements Closeable {
      * 値の挿入/更新を行う
      */
     public void putInTx(final Map<String, String> values) {
-        runInTx(new Runnable() {
-            @Override
-            public void run() {
-                Iterator<Map.Entry<String, String>> iterator = values.entrySet().iterator();
-                while (iterator.hasNext()) {
-                    Map.Entry<String, String> entry = iterator.next();
-                    insertOrUpdate(entry.getKey(), entry.getValue());
-                }
+        runInTx(() -> {
+            Iterator<Map.Entry<String, String>> iterator = values.entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry<String, String> entry = iterator.next();
+                insertOrUpdate(entry.getKey(), entry.getValue());
             }
         });
     }
@@ -179,12 +176,7 @@ public class TextKeyValueStore implements Closeable {
      * 簡易的に値を挿入する
      */
     public void putDirect(final String key, final String value) {
-        runInTx(new Runnable() {
-            @Override
-            public void run() {
-                insertOrUpdate(key, value);
-            }
-        });
+        runInTx(() -> insertOrUpdate(key, value));
     }
 
     /**
