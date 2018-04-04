@@ -103,7 +103,17 @@ public class TextKeyValueStore implements Closeable {
      */
     public void open(DBOpenType type) {
         if (refs.incrementAndGet() == 1) {
-            helper = new Helper();
+
+            String dbFileName = null;
+            if (dbFile != null) {
+                dbFileName = dbFile.getAbsolutePath();
+                if (dbFileName.charAt(1) == ':') {
+                    // for Windows(Robolectric)
+                    dbFileName = dbFile.getName();
+                }
+            }
+
+            helper = new Helper(dbFileName);
             db = type.open(helper);
             createTable();
         }
@@ -545,8 +555,8 @@ public class TextKeyValueStore implements Closeable {
     }
 
     class Helper extends SQLiteOpenHelper {
-        public Helper() {
-            super(context, dbFile != null ? dbFile.getAbsolutePath() : null, null, SUPPORT_DB_VERSION);
+        public Helper(String dbFileName) {
+            super(context, dbFileName, null, SUPPORT_DB_VERSION);
         }
 
         @Override
