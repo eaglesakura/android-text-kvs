@@ -10,11 +10,14 @@ machine:
     ANDROID_HOME: /home/ubuntu/android-sdk
     GRADLE_OPTS: -Xmx2G -Dorg.gradle.daemon=true
     JAVA_OPTS: -Dfile.encoding=UTF-8 -Xms1024m -Xmx2048m -XX:MaxPermSize=2048m
+    PATH: /home/ubuntu/android-sdk:/home/ubuntu/android-sdk/tools:/home/ubuntu/android-sdk/tools/bin:/home/ubuntu/android-sdk/platform-tool:$PATH
 dependencies:
   cache_directories:
     - "/home/ubuntu/android-sdk"
   override:
     - sh -c "$(curl -fsSL https://raw.githubusercontent.com/eaglesakura/build-dependencies/master/circleci/install-android-sdk-auto.sh)"
+    - yes | sdkmanager "build-tools;26.0.2"
+    - yes | sdkmanager "platforms;android-26"
 test:
   override:
     - sh -c "$(curl -fsSL https://raw.githubusercontent.com/eaglesakura/build-dependencies/master/circleci/build-test.sh)"
